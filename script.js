@@ -1,49 +1,71 @@
 const choices = ["Rock", "Paper", "Scissors"];
 let userScore = 0;
 let computerScore = 0;
+const userScoreSpan = document.querySelector("#user-score");
+const compScoreSpan = document.querySelector("#comp-score");
+const gameMessage = document.querySelector("#game-message");
 
 function getComputerChoice() {
     let computerChoice = choices[Math.floor(Math.random() * choices.length)];
     return computerChoice;
 }; 
 
+function win() {
+    userScore++;
+    userScoreSpan.innerHTML = userScore;
+    compScoreSpan.innerHTML = computerScore;
+    if (userScore >= 5) {
+        endGame();
+    } 
+}
+
+function lose() {
+    computerScore++;
+    userScoreSpan.innerHTML = userScore;
+    compScoreSpan.innerHTML = computerScore;
+    if (computerScore >= 5) {
+        endGame();
+    }
+}
+
+function endGame() {
+    if (userScore >= 5) {
+    alert("Game over! You win!")
+    } else if (computerScore >= 5) {
+        alert("Game over! Computer wins.")
+    }
+ } ;
+
 function game(userChoice) {
    const computerChoice = getComputerChoice();
    let playerSelection = userChoice;
 
     if (playerSelection === computerChoice.toLowerCase()) {
-        console.log("Tie! Play again.");
-        console.log(`The score is currently ${userScore} to ${computerScore}.`);
+        gameMessage.innerHTML = "Tie! Play again."
     }
 
    if (playerSelection === "rock" && computerChoice === "Paper") {
-       computerScore++;
-       console.log("You lose! Paper beats rock.");
-       console.log(`The score is currently ${userScore} to ${computerScore}.`);
+       lose();
+       gameMessage.innerHTML = "You lose! Paper beats rock."
    } else if (playerSelection === "rock" && computerChoice === "Scissors") {
-        userScore++;
-        console.log("You win! Rock beats scissors.");
-        console.log(`The score is currently ${userScore} to ${computerScore}.`);
+        win();
+        gameMessage.innerHTML = "You win! Rock beats scissors."
    }
 
    if (playerSelection === "scissors" && computerChoice === "Paper") {
-        userScore++;
-        console.log("You win! Scissors beats paper.");
-        console.log(`The score is currently ${userScore} to ${computerScore}.`);
+        win();
+        gameMessage.innerHTML = "You win! Scissors beats paper."
     } else if (playerSelection === "scissors" && computerChoice === "Rock") {
-        computerScore++;
-        console.log("You lose! Rock beats scissors.");
-        console.log(`The score is currently ${userScore} to ${computerScore}.`);
+        lose();
+        gameMessage.innerHTML = "You lose! Rock beats scissors."
     }
 
     if (playerSelection === "paper" && computerChoice === "Rock") {
-        userScore++;
-        console.log("You win! Paper beats rock.");
-        console.log(`The score is currently ${userScore} to ${computerScore}.`);
+        win();
+        gameMessage.innerHTML = "You win! Paper beats rock."
     } else if (playerSelection === "paper" && computerChoice === "Scissors") {
-        computerScore++;
-        console.log("You lose! Scissors beats paper.");
-        console.log(`The score is currently ${userScore} to ${computerScore}.`);
+        lose(); 
+        gameMessage.innerHTML = "You lose! Scissors beats paper."
     }
 };
 
