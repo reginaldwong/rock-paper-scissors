@@ -1,70 +1,72 @@
 const choices = ["Rock", "Paper", "Scissors"];
+let userScore = 0;
+let computerScore = 0;
 
-function computerPlay() {
+function getComputerChoice() {
     let computerChoice = choices[Math.floor(Math.random() * choices.length)];
     return computerChoice;
-};
+}; 
 
-function playerPlay() {
-    let computerChoice = choices[Math.floor(Math.random() * choices.length)];
-    return computerChoice;
-};
+function game(userChoice) {
+   const computerChoice = getComputerChoice();
+   let playerSelection = userChoice;
 
-function playSingleRound() {
-    let playerSelection = prompt("Pick one of the following: rock, paper, or scissors?");
-    playerSelection = playerSelection.toLowerCase();
-    const computerSelection = computerPlay(); 
-
-    // IF PLAYER CHOOSES ROCK:
-    if (playerSelection === "rock" && computerSelection === "Rock") {
-        return ("Tie! Play again.");
-    } else if (playerSelection === "rock" && computerSelection === "Paper") {
-        return ("You lose! Paper beats rock.");
-        computerCounter += 1;
-    } else if (playerSelection === "rock" && computerSelection === "Scissors") {
-        return ("You win! Rock beats scissors.");
-        playerCounter += 1;
-    } 
-
-    // IF PLAYER CHOOSES PAPER:
-    if (playerSelection === "paper" && computerSelection === "Rock") {
-        return ("You win! Paper beats rock.");
-        playerCounter += 1;
-    } else if (playerSelection === "paper" && computerSelection === "Paper") {
-        return ("Tie! Play again.");
-    } else if (playerSelection === "paper" && computerSelection === "Scissors") {
-        return ("You lose! Scissors beats paper.");
-        computerCounter += 1;
+    if (playerSelection === computerChoice.toLowerCase()) {
+        console.log("Tie! Play again.");
+        console.log(`The score is currently ${userScore} to ${computerScore}.`);
     }
 
-    // IF PLAYER CHOOSES SCISSORS:
-    if (playerSelection === "scissors" && computerSelection === "Rock") {
-        return ("You lose! Rock beats scissors.");
-        computerCounter += 1;
-    } else if (playerSelection === "scissors" && computerSelection === "Paper") {
-        return ("You win! Scissors beats paper.");
-        playerCounter += 1;
-    } else if (playerSelection === "scissors" && computerSelection === "Scissors") {
-        return ("Tie! Play again.");
-    }
-}
+   if (playerSelection === "rock" && computerChoice === "Paper") {
+       computerScore++;
+       console.log("You lose! Paper beats rock.");
+       console.log(`The score is currently ${userScore} to ${computerScore}.`);
+   } else if (playerSelection === "rock" && computerChoice === "Scissors") {
+        userScore++;
+        console.log("You win! Rock beats scissors.");
+        console.log(`The score is currently ${userScore} to ${computerScore}.`);
+   }
 
-function endGame() {
-    if (playerCounter <= 3) {
-        return "Congratulations! You Win!"
-    } else if (computerCounter <= 3) {
-        return "You lose."
+   if (playerSelection === "scissors" && computerChoice === "Paper") {
+        userScore++;
+        console.log("You win! Scissors beats paper.");
+        console.log(`The score is currently ${userScore} to ${computerScore}.`);
+    } else if (playerSelection === "scissors" && computerChoice === "Rock") {
+        computerScore++;
+        console.log("You lose! Rock beats scissors.");
+        console.log(`The score is currently ${userScore} to ${computerScore}.`);
     }
-}
 
-function game() {
-    for (let i = 0; i <= 5; i++) {
-        console.log(playSingleRound());
+    if (playerSelection === "paper" && computerChoice === "Rock") {
+        userScore++;
+        console.log("You win! Paper beats rock.");
+        console.log(`The score is currently ${userScore} to ${computerScore}.`);
+    } else if (playerSelection === "paper" && computerChoice === "Scissors") {
+        computerScore++;
+        console.log("You lose! Scissors beats paper.");
+        console.log(`The score is currently ${userScore} to ${computerScore}.`);
     }
 };
 
-console.log(game());
+game();
 
+function main() {
+    const rock = document.querySelector("#rock")
+        rock.addEventListener('click', () => {
+        game("rock");
+    });
+
+    const paper = document.querySelector("#paper")
+        paper.addEventListener('click', () => {
+        game("paper");
+    });
+
+    const scissors = document.querySelector("#scissors")
+        scissors.addEventListener('click', () => {
+        game("scissors");
+    });
+};
+
+main();
 
 
 
